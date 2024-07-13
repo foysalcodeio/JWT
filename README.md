@@ -26,3 +26,11 @@ axios.post('http://localhost:5500/jwt', user)
         res.send(token)
     });
 ```
+Automatic create a secret
+```
+require('crypto').randomBytes(64).toString('hex')
+```
+Working on Cookie parser
+```
+ npm install cookie-parser
+```
