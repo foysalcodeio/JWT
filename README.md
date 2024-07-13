@@ -6,7 +6,6 @@ JWT
         console.log(user)
         res.send(user)
     });
-j
 ```
 
 ## front-end - primary-step: 1
