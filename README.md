@@ -1,5 +1,5 @@
-# JWT
-## primary-step: 1
+JWT
+## backend - primary-step: 1
 ```
   app.post('/jwt', async (req, res) => {
         const user = req.body;
@@ -7,4 +7,14 @@
         res.send(user)
     });
 j
+```
+
+## front-end - primary-step: 1
+```
+//get access jwt token from backend
+const user = {email}
+axios.post('http://localhost:5500/jwt', user)
+.then(response => {
+    console.log(response.data)
+})
 ```
