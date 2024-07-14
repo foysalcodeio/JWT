@@ -35,7 +35,7 @@ require('crypto').randomBytes(64).toString('hex')
 ```
  npm install cookie-parser
 ```
-##cors - permission and access token
+## cors - permission and access token
 ```
 app.use(cors({
   origin: ['http://localhost:5173'],
@@ -43,14 +43,27 @@ app.use(cors({
 }));
 app.use(express.json());
 ```
-front-end
+## send cookie client side and fixed browser
 ```
- axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
-  .then(res => {
-      console.log(res.data)
-      if (res.data.success) {
-          navigate(location?.state ? location?.state : '/')
-      }
+app.post('/jwt', async (req, res) => {
+        const user = req.body;
+        console.log(user)
+        const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'})
+        res
+        .cookie('token', token, {
+          httpOnly: true,
+          secure: false, // when i use for production then i use or turn - secure-true
+          sameSite: 'none', // client and server is not same site
+        })
+        .send({success: true})
+    });
+```
+## get access jwt token from backend
+```
+ const user = {email}
+  axios.post('http://localhost:5500/jwt', user, {withCredentials: true})
+  .then(response => {
+      console.log('response data -', response.data)
   })
 ```
 
