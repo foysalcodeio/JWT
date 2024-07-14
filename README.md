@@ -43,7 +43,7 @@ app.use(cors({
 }));
 app.use(express.json());
 ```
-## send cookie client side and fixed browser
+## Generating cookie in backend & send cookie client side and fixed browser
 ```
 app.post('/jwt', async (req, res) => {
         const user = req.body;
@@ -58,7 +58,7 @@ app.post('/jwt', async (req, res) => {
         .send({success: true})
     });
 ```
-## get access jwt token from backend
+## client site axios setting & get access jwt token from backend
 ```
  const user = {email}
   axios.post('http://localhost:5500/jwt', user, {withCredentials: true})
@@ -66,4 +66,21 @@ app.post('/jwt', async (req, res) => {
       console.log('response data -', response.data)
   })
 ```
+## taking cookie from backend and again cookie send server
+cart.jsx
+```
+    useEffect(() => {
+        if (user?.email) {
+            axios.get(url, {withCredentials: true})
+                .then(response => {
+                    console.log(response.data);
+                    setBookings(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching bookings:', error);
+                });
+        }
+    }, [url, user?.email]);
+```
+
 
