@@ -35,7 +35,7 @@ require('crypto').randomBytes(64).toString('hex')
 ```
  npm install cookie-parser
 ```
-## cors - permission and access token
+## cors - permission and access token - cookies goes to client site
 ```
 app.use(cors({
   origin: ['http://localhost:5173'],
