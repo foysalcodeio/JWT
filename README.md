@@ -17,7 +17,7 @@ axios.post('http://localhost:5500/jwt', user)
     console.log(response.data)
 })
 ```
-# edit - 2nd stage
+## edit - 2nd stage
 ```
   app.post('/jwt', async (req, res) => {
         const user = req.body;
@@ -30,7 +30,27 @@ Automatic create a secret
 ```
 require('crypto').randomBytes(64).toString('hex')
 ```
-Working on Cookie parser
+# Working on Cookie parser
+## installation command
 ```
  npm install cookie-parser
 ```
+##cors - permission and access token
+```
+app.use(cors({
+  origin: ['http://localhost:5173'],
+  credentials: true
+}));
+app.use(express.json());
+```
+front-end
+```
+ axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+  .then(res => {
+      console.log(res.data)
+      if (res.data.success) {
+          navigate(location?.state ? location?.state : '/')
+      }
+  })
+```
+
