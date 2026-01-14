@@ -38,12 +38,11 @@ After that  we trying to catch everywhere in function to test data but big probl
       try{
         const decoded = await admin.auth().verifyIdToken(token);
         req.decoded = decoded;
+        next();
       }
       catch(error){
         return res.status(401).send({ message: 'Unauthorized access: Invalid token' });
       }
-
-      next();
     }
   
 ```
