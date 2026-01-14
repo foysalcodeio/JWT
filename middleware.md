@@ -46,3 +46,16 @@ After that  we trying to catch everywhere in function to test data but big probl
     }
   
 ```
+ইউজার ইমেইল সাথে ডিকোডার ইউজার মেইল মিল থাকলে ডাটা দেখাবে তা না হলে দেখাবে না
+```
+    app.get("/parcels", async (req, res) => {
+      try {
+        ..........................
+        ..........................
+        if(req.decoded.email !== userEmail){
+          return res.status(403).send({ message: 'Forbidden access' });
+        }
+        ..........................
+        ..........................
+    });
+```
