@@ -13,3 +13,10 @@ const useAxiosSecure = () => {
 };
 
 ```
+
+In backend any directory we check data response
+
+```
+console.log("Fetching payments jwt testing :", req.body);
+console.log("Fetching payments jwt testing :", req.headers);
+```
