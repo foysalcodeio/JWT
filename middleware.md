@@ -13,7 +13,6 @@ const useAxiosSecure = () => {
 };
 
 ```
-
 In backend any directory we check data response
 
 ```
@@ -22,8 +21,10 @@ console.log("Fetching payments jwt testing :", req.headers);
 ```
 After that  we trying to catch everywhere in function to test data but big problem is large application is huge time so that we can add middleware where as every function to test it
 
+সবার উপরের যে কোডটা আছে ওইটা একটা ক্লায়েন্ট সাইডে টোকেন জেনারেট করবে useAxiosSecure.post(.......) এর মাধ্যমে ব্যাকএন্ড ডাটাবেজ এ পাঠাবে যদি মিডলওয়্যার বা রিসিভ করার ফাংশন থাকে। এই ফাংশনকে আমরা verifyFirebaseToken নামে চিনি। এই verifyFirebaseToken client side থেকে আগত কোড চেক করে দেখবে নিদিষ্ট ইউজার থেকে প্রাপ্ত কোড ডাটা এক্সেস করার জন্য ঠিক আছে কিনা।
+
 ```
-    const verifyFBToken = (req, res, next) => {
+    const verifyFBToken = async (req, res, next) => {
       const authHeader = req.headers.authorization;
       if (!authHeader) {
         return res.status(401).send({ message: 'Unauthorized access: No token provided' });
@@ -33,8 +34,15 @@ After that  we trying to catch everywhere in function to test data but big probl
         return  res.status(401).send({ message: 'Unauthorized access: Malformed token' });
       }
       // token verification logic here
-
       // verify token with Firebase Admin SDK or other method
+      try{
+        const decoded = await admin.auth().verifyIdToken(token);
+        req.decoded = decoded;
+      }
+      catch(error){
+        return res.status(401).send({ message: 'Unauthorized access: Invalid token' });
+      }
+
       next();
     }
   
